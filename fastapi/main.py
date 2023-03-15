@@ -6,7 +6,7 @@ import uvicorn
 import requests
 from database import fill_database, get_from_db, update_db, delete_from_db
 from pydantic import BaseModel
-from checker import check_auth
+from checker import check_auth, check_title
 
 
 class Media(BaseModel):
@@ -33,7 +33,7 @@ async def root():
 @app.get("/media_api")
 async def media_api():
     response = requests.post(URL, json={'query': QUERY})
-    data = response.json()['data']['Page']['media']
+    data = check_title(response.json()['data']['Page']['media'])
     template = env.get_template('index.html')
     content = template.render(data=data)
     return HTMLResponse(content=content)
@@ -42,7 +42,7 @@ async def media_api():
 @app.get("/media_api/{index}")
 async def media_api_pages(index: int):
     response = requests.post(URL, json={'query': QUERY})
-    data = response.json()['data']['Page']['media']
+    data = check_title(response.json()['data']['Page']['media'])
     template = env.get_template('media.html')
     content = template.render(data=data[index - 1])
     return HTMLResponse(content=content)

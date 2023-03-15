@@ -2,6 +2,56 @@
 <html>
   <head>
     <title>{{ data.title.english }}</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        color: #333;
+        font-size: 36px;
+        margin-top: 50px;
+        text-align: center;
+      }
+      
+      h2 {
+        color: #666;
+        font-size: 24px;
+        margin-top: 30px;
+        text-align: center;
+      }
+      
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 30px;
+        text-align: justify;
+      }
+      
+      .btn {
+        display: inline-block;
+        margin: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #fff;
+        background-color: #333;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .btn:hover {
+        background-color: #555;
+      }
+      
+      
+    </style>
   </head>
   <body>
     <h1>{{ data.title.english }}</h1>
@@ -9,8 +59,8 @@
     <h2>{{ data.title.native }}</h2>
     {% endif %}
     <p>{{ data.description }}</p>
-    <a href="{{ data.siteUrl }}">Visit Website</a>
-    <br>
-    <a href="/">Home</a>
+    <a class="btn" href="{{ data.siteUrl }}">Visit Website</a>
+    <a class="btn" href="/">Home</a>
   </body>
 </html>
+
