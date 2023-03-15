@@ -14,8 +14,8 @@ HOST = getenv('HOST')
 PORT = getenv('PORT')
 try:
   APP_PORT = int(getenv('APP_PORT'))
-except ValueError:
-  logger.info('WRONG PORT!')
+except (ValueError, TypeError) as err:
+  logger.info(f'WRONG PORT!\n{err}')
 else:
   APP_PORT=8000
 
@@ -38,9 +38,8 @@ QUERY = """
 URL = 'https://graphql.anilist.co'
 
 
-CLIENT = MongoClient(
-    f"mongodb://{HOST}:{PORT}/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.0"
-)
+CLIENT = MongoClient(f'mongodb://{HOST}:{PORT}/')
+
 
 
 MESSAGE = "Media {0} successfully"

@@ -79,9 +79,9 @@ async def update_media(title: Media | None = None, auth: str = None):
 
 
 @app.delete("/media")
-async def delete_media(title: Media | None = None, auth: str = None):
+async def delete_media(id: int | None = None, auth: str = None):
     check_auth(auth)
-    delete_from_db(CLIENT, title.to_dict()['id'])
+    delete_from_db(CLIENT, id)
     return MESSAGE.format('deleted')
 
 if __name__ == "__main__":

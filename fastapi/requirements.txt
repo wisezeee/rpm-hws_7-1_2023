@@ -1,0 +1,12 @@
+pymongo>=3.1
+fastapi
+uvicorn
+sqlmodel
+typer
+dynaconf
+jinja2
+pydantic>=1.8.2
+python-multipart
+requests[security] == 2.9.1
+logging
+python-dotenv
