@@ -1,6 +1,7 @@
 from config import *
 import logging
 from logger import init_logger
+import requests
 
 
 init_logger('main')
@@ -13,6 +14,13 @@ def fill_database(client, data):
     logger.info('Create database succesfully!')
     data['_id'] = data['id']
     del data['id']
+    url = data['siteUrl']
+    try:
+        response = requests.get(url, timeout=TIMEOUT)
+    except Exception:
+        return 'WRONG URL'
+    if response.status_code != OK:
+        return 'WRONG URL'
     coll.insert_one(data)
     logger.info('Inserted data succesfully!')
 
@@ -28,6 +36,13 @@ def get_from_db(client):
 def update_db(client, id, new_data):
     db = client[f'{DBNAME}']
     coll = db.COLNAME
+    url = new_data['siteUrl']
+    try:
+        response = requests.get(url, timeout=TIMEOUT)
+    except Exception:
+        return 'WRONG URL'
+    if response.status_code != OK:
+        return 'WRONG URL'
     result = coll.update_one({"_id": id}, {"$set": new_data})
     logger.info(f"Updated document with ID {id}")
     return result.modified_count

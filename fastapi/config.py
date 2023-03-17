@@ -47,3 +47,5 @@ MESSAGE = "Media {0} successfully"
 OK = 200
 
 NOT_FOUND = 404
+
+TIMEOUT = 3

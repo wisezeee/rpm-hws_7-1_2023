@@ -67,14 +67,18 @@ async def media_pages(index: int):
 @app.post("/media")
 async def create_media(title: Media | None = None, auth: str = None):
     check_auth(auth)
-    fill_database(CLIENT, title.to_dict())
+    mes = fill_database(CLIENT, title.to_dict())
+    if mes:
+        return mes
     return MESSAGE.format('created')
 
 
 @app.put("/media")
 async def update_media(title: Media | None = None, auth: str = None):
     check_auth(auth)
-    update_db(CLIENT, title.to_dict()['id'], title.to_dict())
+    mes = update_db(CLIENT, title.to_dict()['id'], title.to_dict())
+    if mes:
+        return mes
     return MESSAGE.format('updated')
 
 
