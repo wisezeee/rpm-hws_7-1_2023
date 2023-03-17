@@ -35,4 +35,5 @@ jobs:
     - name: Pytest
       run: |
         cd fastapi
+        echo $'HOST=localhost\nPORT=27018\nDBNAME=anime\nCOLNAME=titles\nTOKEN=MAX228' >> .env
         pytest
