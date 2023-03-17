@@ -85,4 +85,4 @@ async def delete_media(id: int | None = None, auth: str = None):
     return MESSAGE.format('deleted')
 
 if __name__ == "__main__":
-    uvicorn.run(app, host=HOST, port=APP_PORT)
+    uvicorn.run(app, host=HOST)
