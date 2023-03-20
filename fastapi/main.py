@@ -58,9 +58,9 @@ async def media():
 
 @app.get("/media/{index}")
 async def media_pages(index: int):
-    data = get_from_db(CLIENT)
+    data = [element for element in get_from_db(CLIENT) if element['_id'] == index][0]
     template = env.get_template('media.html')
-    content = template.render(data=data[index - 1])
+    content = template.render(data=data)
     return HTMLResponse(content=content)
 
 
@@ -68,25 +68,23 @@ async def media_pages(index: int):
 async def create_media(title: Media | None = None, auth: str = None):
     check_auth(auth)
     mes = fill_database(CLIENT, title.to_dict())
-    if mes:
-        return mes
-    return MESSAGE.format('created')
+    return mes if mes else MESSAGE.format('created')
 
 
 @app.put("/media")
 async def update_media(title: Media | None = None, auth: str = None):
     check_auth(auth)
     mes = update_db(CLIENT, title.to_dict()['id'], title.to_dict())
-    if mes:
+    if mes and not isinstance(mes, int):
         return mes
-    return MESSAGE.format('updated')
+    return 'You alredy update data!' if not mes else MESSAGE.format('updated')
 
 
 @app.delete("/media")
 async def delete_media(id: int | None = None, auth: str = None):
     check_auth(auth)
-    delete_from_db(CLIENT, id)
-    return MESSAGE.format('deleted')
+    status = delete_from_db(CLIENT, id)
+    return 'Not found data!' if not status else MESSAGE.format('deleted')
 
 if __name__ == "__main__":
     uvicorn.run(app, host=HOST)

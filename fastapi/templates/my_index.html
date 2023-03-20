@@ -48,7 +48,7 @@
     <h1>Media List</h1>
     <ul>
       {% for item in data %}
-      <li onclick="window.open('/media/{{ loop.index }}', '_blank');">
+      <li onclick="window.open('/media/{{ item._id }}', '_blank');">
         <a href="#">{{ item.title.english }}</a>
         {% if item.title.native %}
         ({{ item.title.native }})
