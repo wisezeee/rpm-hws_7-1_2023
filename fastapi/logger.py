@@ -8,10 +8,10 @@ def init_logger(name: str):
         name (str): application's name.
     """
     logger = logging.getLogger(name)
-    format = '%(asctime)s - %(name)s:%(lineno)s - %(levelname)s - %(message)s'
+    log_format = '%(asctime)s - %(name)s:%(lineno)s - %(levelname)s - %(message)s'
     logger.setLevel(logging.DEBUG)
     sh = logging.StreamHandler()
-    sh.setFormatter(logging.Formatter(format))
+    sh.setFormatter(logging.Formatter(log_format))
     sh.setLevel(logging.DEBUG)
     sh.setLevel(logging.DEBUG)
     logger.addHandler(sh)

@@ -8,20 +8,20 @@ init_logger('main')
 logger = logging.getLogger("main")
 
 
-def fill_database(client, data):
+def fill_database(client, data_to_insert):
     db = client[f'{DBNAME}']
     coll = db.COLNAME
     logger.info('Create database succesfully!')
-    data['_id'] = data['id']
-    del data['id']
-    url = data['siteUrl']
+    data_to_insert['_id'] = data_to_insert['id']
+    del data_to_insert['id']
+    url = data_to_insert['siteUrl']
     try:
         response = requests.get(url, timeout=TIMEOUT)
     except Exception:
         return 'WRONG URL'
     if response.status_code != OK:
         return 'WRONG URL'
-    coll.insert_one(data)
+    coll.insert_one(data_to_insert)
     logger.info('Inserted data succesfully!')
 
 
@@ -33,7 +33,7 @@ def get_from_db(client):
     return res
 
 
-def update_db(client, id, new_data):
+def update_db(client, id_from_user, new_data):
     db = client[f'{DBNAME}']
     coll = db.COLNAME
     url = new_data['siteUrl']
@@ -43,14 +43,14 @@ def update_db(client, id, new_data):
         return 'WRONG URL'
     if response.status_code != OK:
         return 'WRONG URL'
-    result = coll.update_one({"_id": id}, {"$set": new_data})
-    logger.info(f"Updated document with ID {id}")
-    return result.modified_count
+    result_to_user = coll.update_one({"_id": id_from_user}, {"$set": new_data})
+    logger.info(f"Updated document with ID {id_from_user}")
+    return result_to_user.modified_count
 
 
-def delete_from_db(client, id):
+def delete_from_db(client, id_from_user):
     db = client[f'{DBNAME}']
     coll = db.COLNAME
-    result = coll.delete_one({"_id": id})
-    logger.info(f"Deleted document with ID {id}")
-    return result.deleted_count
+    result_to_user = coll.delete_one({"_id": id_from_user})
+    logger.info(f"Deleted document with ID {id_from_user}")
+    return result_to_user.deleted_count
