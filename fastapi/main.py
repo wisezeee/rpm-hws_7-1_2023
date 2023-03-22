@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from jinja2 import Environment, FileSystemLoader
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from config import *
 import uvicorn
 import requests
@@ -64,7 +64,7 @@ async def media_pages(index: int):
     return HTMLResponse(content=content)
 
 
-@app.post("/media")
+@app.post("/media", status_code=CREATED)
 async def create_media(title: Media | None = None, auth: str = None):
     check_auth(auth)
     mes = fill_database(CLIENT, title.to_dict())
@@ -83,8 +83,11 @@ async def update_media(title: Media | None = None, auth: str = None):
 @app.delete("/media")
 async def delete_media(id: int | None = None, auth: str = None):
     check_auth(auth)
-    status = delete_from_db(CLIENT, id)
-    return 'Not found data!' if not status else MESSAGE.format('deleted')
+    status_rec = delete_from_db(CLIENT, id)
+    if not status_rec:
+        resp_content = {"message": "Item not found"}
+        return JSONResponse(content=resp_content, status_code=NOT_FOUND)
+    return MESSAGE.format('deleted')
 
 if __name__ == "__main__":
     uvicorn.run(app, host=HOST)
