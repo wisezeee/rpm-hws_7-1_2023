@@ -58,7 +58,8 @@ async def media():
 
 @app.get("/media/{index}")
 async def media_pages(index: int):
-    data_to_user = [element for element in get_from_db(CLIENT) if element['_id'] == index][0]
+    temprorary_data = [element for element in get_from_db(CLIENT) if element['_id'] == index]
+    data_to_user = temprorary_data[0]
     template = env.get_template('media.html')
     content_to_user = template.render(data=data_to_user)
     return HTMLResponse(content=content_to_user)
