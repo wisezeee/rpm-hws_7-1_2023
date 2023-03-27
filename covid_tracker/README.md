@@ -1,0 +1,5 @@
+- python3 -m venv venv
+- pip install -r requirements.txt
+- docker build -t http_image .
+- docker run --name http_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 38746:5432 -d http_image
+- python3 main.py

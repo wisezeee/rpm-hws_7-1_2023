@@ -1,14 +1,20 @@
 import requests
-from pprint import pprint
+from os import getenv
+from dotenv import load_dotenv
 
-url = "https://covid-19-tracking.p.rapidapi.com/v1/usa"
+load_dotenv()
+
+
+url = "https://covid-193.p.rapidapi.com/statistics"
 
 headers = {
-    "X-RapidAPI-Key": "d8a2b24394msh530522f623e5ebcp1dff13jsn3401538088fc",
-    "X-RapidAPI-Host": "covid-19-tracking.p.rapidapi.com"
+	"X-RapidAPI-Key": f'{getenv("RAPID_API_KEY")}',
+	"X-RapidAPI-Host": f'{getenv("RAPID_API_HOST")}'
 }
 
 response = requests.request("GET", url, headers=headers)
 
-country = response.json()['Country_text']
-deaths = response.json()['Total Deaths_text']
+txt = response.json()['response'][0]
+country = txt['continent']
+north_america = txt['deaths']
+today = north_america['total']

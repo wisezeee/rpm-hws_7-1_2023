@@ -1,4 +1,4 @@
-#!/home/sirius/Carina/http_app/covid_tracker/venv/bin/python3
+#!/home/sirius/PycharmProjects/pythonProject/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
