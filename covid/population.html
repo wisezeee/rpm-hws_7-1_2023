@@ -1,0 +1,46 @@
+<html lang="en">
+    <head>
+        <title>
+            Students
+        </title>
+    </head>
+    <body>
+        <br>
+        <form action="/population" name="population_form" id="population_form">
+            <label for="date">Request date</label><br>                                    
+            <input type="text" id="date" name="date">
+            <br><br>
+            <label for="population">Population</label><br>                        
+            <input type="text" id="population" name="population">
+            <br><br>
+            <label for="fname">Country</label><br>
+            <input type="text" id="name" name="name">
+            <br><br>
+            <label for="lcontinent">Continent</label><br>            
+            <input type="text" id="continent" name="continent">
+            <br><br>
+            <input type="submit">
+        </form>
+        <script>
+            var form = document.getElementById("population_form")              
+            form.addEventListener('submit', function () {{
+                var all_inputs = form.getElementsByTagName('input');
+                for (var i = 0; i < all_inputs.length; i++) {{
+                    var input = all_inputs[i];
+                    if (input.name && !input.value) {{
+                        input.name = '';
+                    }}
+                }}
+            }});
+        </script>
+
+        <h4>
+            Counries count: {number}
+        </h4>
+        <h4> Countries: </h4>
+            {rendered_counries}
+        <br></br>
+        <a href="/">Back to main</a>
+    </body>
+
+</html>
