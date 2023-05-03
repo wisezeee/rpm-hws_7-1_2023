@@ -29,8 +29,8 @@ GET_TOKEN = "SELECT token FROM token WHERE username='{username}'"
 INSERT = "INSERT INTO country ({keys}) VALUES ({values}) RETURNING id"
 UPDATE = "UPDATE country SET {request}"
 DELETE = 'DELETE FROM country '
-POPULATION_REQUIRED_ATTRS = ['name', 'continent']
-POPULATION_ALL_ATTRS = ['id', 'name', 'continent', 'date', 'population']
+POPULATION_REQUIRED_ATTRS = ['name', 'continent','population']
+POPULATION_ALL_ATTRS = ['id', 'name', 'continent', 'population']
 
 CODING = 'KOI8-R'
 

@@ -71,19 +71,20 @@ class CustomHandler(BaseHTTPRequestHandler):
                 return OK, 'Content has been deleted'
         return NOT_FOUND, 'Content not found'
 
-    def post(self, data_from_put=None, msg='') -> tuple:
+    def post(self, content=None):
         if self.path.startswith(POPULATION):
-            request_data = self.read_content_json() if not data_from_put else data_from_put
-            if not request_data:
-                return BAD_REQUEST, f'{msg}No request data provided by {self.command}'
-            for attr in request_data.keys():
+            if not content:
+                content = self.read_content_json()
+            if not content:
+                return BAD_REQUEST, f'No content or incorrect data provided by {self.command}'
+            for attr in content.keys():
                 if attr not in POPULATION_ALL_ATTRS:
-                    return NOT_IMPLEMENTED, f'{msg}Examples do not have attribute: {attr}'
-            if all([req_attr in request_data for req_attr in POPULATION_REQUIRED_ATTRS]):
-
-                return CREATED, f'{msg}{self.command} OK'
-            return BAD_REQUEST, f'{msg}Required keys to add: {POPULATION_REQUIRED_ATTRS}'
-        return NO_CONTENT, f'{msg}Request data for {self.command} not found'
+                    return NOT_IMPLEMENTED, f'students do not have attribute: {attr}'
+            if all([key in content for key in POPULATION_REQUIRED_ATTRS]):
+                status, message = DbHandler.insert(content)
+                message = f'http://{HOST}:{PORT}{POPULATION}/?id={message}' if status == CREATED else message
+                return status, message
+        return BAD_REQUEST, 'Page not found'
 
     def put(self) -> tuple:
             if self.path.startswith(POPULATION):
