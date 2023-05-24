@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # set env variables
-python3 setup_env.py
+python3.10 tests/setup_env.py
 
 # set up database
-python3 setup_db.py
+python3.10 tests/setup_db.py
 
 # server start
 echo "Starting the server"
-python3 main.py &
+python3.10 main.py &
 
 # real tests
 sleep 2
