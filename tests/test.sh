@@ -53,7 +53,7 @@ echo "query_GET request:"
 get_code=`curl -s -o /dev/null \
     -X GET \
     -w %{http_code} \
-    http://127.0.0.1:8001/population?name=France`
+    http://127.0.0.1:8001/population?name=Korea`
 
 check_code $get_code $OK
 
@@ -63,6 +63,6 @@ post_code=`curl -s -o /dev/null \
     -X DELETE \
     -H "Authorization:admin {$token}"\
     -w %{http_code} \
-    http://127.0.0.1:8001/population?name=France`
+    http://127.0.0.1:8001/population?name=Korea`
 
 check_code $post_code $OK
