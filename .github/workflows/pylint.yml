@@ -41,6 +41,7 @@ jobs:
         python -m pip install --upgrade pip
     - name: Тесты bash-curl
       run: |
+        pip install psycopg2
         chmod +x tests/test.sh
         ./tests/test.sh
     - name: Тесты python-requests
