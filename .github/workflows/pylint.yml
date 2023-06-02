@@ -42,6 +42,7 @@ jobs:
     - name: Тесты bash-curl
       run: |
         pip install psycopg2
+        pip install dotenv
         chmod +x tests/test.sh
         ./tests/test.sh
     - name: Тесты python-requests
