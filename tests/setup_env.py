@@ -3,7 +3,7 @@ env_consts = {
     'PG_PORT': '5432',
     'PG_USER': 'app',
     'PG_PASSWORD': '123',
-    'PG_DBNAME': 'test'
+    'PG_DBNAME': 'postgres'
 }
 
 
